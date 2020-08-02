@@ -15,7 +15,7 @@ export class FunctionService implements IFunctionService<any> {
         const ids: string[] = userRequest.id.split(",");
         const regex: RegExp = RegExp("^\\d+$");
         let idValidation: boolean = true;
-        let pokemons: any;
+        let pokemons: string[];
 
         _.forEach(ids, (id) => {
             if (!regex.test(id)) {

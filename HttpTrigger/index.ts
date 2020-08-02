@@ -5,6 +5,7 @@ import { Logger } from "../commonServices/logger";
 import { ILogger } from "../commonServices/iLogger";
 import { IFunctionService } from "./services/IFunctionService";
 import { IUserRequest } from "./utils/IUserRequest";
+import { IResponse } from "./utils/IResponse";
 import { Container } from "inversify";
 
 const httpTrigger: AzureFunction = async (ctx: Context, req: HttpRequest): Promise<any> => {
@@ -23,8 +24,10 @@ const httpTrigger: AzureFunction = async (ctx: Context, req: HttpRequest): Promi
         const functionService: IFunctionService<any> =
             container.get<IFunctionService<any>>(COMMON_TYPES.IFunctionService);
         try {
-            const response: any = await functionService.processMessageAsync(userRequest);
+            const response: IResponse =
+                await functionService.processMessageAsync(userRequest);
 
+            console.log(typeof response);
             ctx.res = {
                 body: response,
                 status: 200,
